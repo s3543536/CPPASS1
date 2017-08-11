@@ -1,6 +1,6 @@
 SOURCES=main.cpp
 OBJECTS=main.o
-HEADERS=*.h
+HEADERS=main.h
 PROGRAM=a.out
 CFLAGS=-lm -pedantic -Wall -std=c++14
 LDFLAGS=-lm -pedantic -Wall -std=c++14
