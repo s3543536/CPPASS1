@@ -1,9 +1,9 @@
-SOURCES=drawlib.c
-OBJECTS=drawlib.o
+SOURCES=main.cpp
+OBJECTS=main.o
 HEADERS=*.h
 PROGRAM=a.out
-CFLAGS= -ansi -lm -pedantic -Wall -g -std=c++14
-LDFLAGS= -ansi -lm -pedantic -Wall -g -std=c++14
+CFLAGS=-lm -pedantic -Wall -std=c++14
+LDFLAGS=-lm -pedantic -Wall -std=c++14
 CC=g++
 
 all: $(PROGRAM)
@@ -17,20 +17,8 @@ $(PROGRAM): $(OBJECTS)
 .PHONY:clean archive debug rebuild
 
 debug:clean all
-debug:
-CFLAGS+= -fsanitize=address -g
-
-debug:
-LDFLAGS+= -fsanitize=address -g
-
-debug:
-%.o: %.c $(HEADERS)
-	gcc $(CFLAGS) -c $< -o $@
-
-debug:
-$(PROGRAM): $(OBJECTS)
-	gcc $(LDFLAGS) -o $@ $^
-
+debug:CFLAGS+= -fsanitize=address -g
+debug:LDFLAGS+= -fsanitize=address -g
 
 clean:
 	rm $(PROGRAM) $(OBJECTS)
