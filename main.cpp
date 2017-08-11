@@ -1,13 +1,14 @@
 #include "main.h"
-#include <boost/program_options.hpp>
-#include <boost/tokenizer.hpp>
 
 int main(int argc, char **argv) {
 
+	//create options
 	boost::program_options::options_description desc("Allowed Options");
 	desc.add_options()
 		("help", "produce help message")
 		("compression", boost::program_options::value<int>(), "set compression level");
+
+	//store the command into a variable map
 	boost::program_options::variables_map var_map;
 	boost::program_options::store(boost::program_options::parse_command_line(argc, argv, desc), var_map);
 	boost::program_options::notify(var_map);

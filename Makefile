@@ -3,7 +3,7 @@ OBJECTS=main.o
 HEADERS=main.h
 PROGRAM=a.out
 CFLAGS=-lm -pedantic -Wall -std=c++14
-LDFLAGS=-lm -pedantic -Wall -std=c++14
+LDFLAGS=-lm -pedantic -Wall -std=c++14 -lboost_program_options
 CC=g++
 
 all: $(PROGRAM)
