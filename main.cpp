@@ -70,78 +70,40 @@ int main(int argc, char **argv) {
 		return EXIT_SUCCESS;
 	}
 
+	list_wrapper wrap;
 
-	//load_file_test(var_map["dictionary"].as<std::string>());
-	//write_file_test(var_map["dictionary"].as<std::string>(), var_map["output"].as<std::string>());
-	std::list<std::string> dict = load_dict(var_map["dictionary"].as<std::string>());
+	std::list<std::string> dict = wrap.load_dict(var_map["dictionary"].as<std::string>());
+	std::list<std::string> text = wrap.load_text(var_map["text"].as<std::string>());
 
+	std::cout << "starting dictionary search\n";
+	std::map<std::string, int> countmap = wrap.count_words(dict, text);
+	std::cout << "ending dictionary search\n";
+
+	std::cout << "starting count\n";
+	std::map<std::string, std::string> wordmap = wrap.check_words(dict, countmap);
+	std::cout << "ending count\n";
+
+	/*
+	for(auto it = outmap.begin(); it != outmap.end(); it++) {
+		std::cout << "asdf\t";
+		std::cout << it->first << ": " << it->second << "\n";
+	}*/
+
+/*
 	for(auto it = dict.begin(); it != dict.end(); it++) {
 		std::cout << "\t" << *it << "\n";
 	}
-
-	//boost::tokenizer<,,>();
-
+*/
+/*
+	for(auto it = text.begin(); it != text.end(); it++) {
+		std::cout << "\t" << *it << "\n";
+	}
+*/
+	return EXIT_SUCCESS;
 }
 
-std::list<std::string> load_dict(std::string fname) {
-	std::list<std::string> dict;
-	std::string line;
-
-	std::ifstream myfile(fname.c_str());
-
-	if(myfile.is_open()) {
-		std::cout << "opening file\n";
-
-		while(std::getline(myfile, line)) {
-			dict.push_back(line);
-		}
-
-		std::cout << "closing file\n";
-		myfile.close();
-
-		return dict;
-	} else {
-		std::cout << "can't open file\n";
-		return dict;
-	}
-}
-
-void write_file_test(std::string iname, std::string oname) {
-	std::string line;
-	//std::ifstream myfile("./data/sml.txt");
-	std::ifstream myfile;
-	std::ofstream outfile;
-
-	outfile.open(oname.c_str());
-	myfile.open(iname.c_str());
-
-	if(myfile.is_open() && outfile.is_open()) {
-		std::cout << "opening file\n";
-		while(std::getline(myfile, line)) {
-			outfile << line << "\n";
-		}
-	} else {
-		std::cout << "file not open\n";
-	}
-	if(myfile.is_open()) { myfile.close(); }
-	if(outfile.is_open()) { outfile.close(); }
-}
-
-void load_file_test(std::string fname) {
-	std::string line;
-	//std::ifstream myfile("./data/sml.txt");
-	std::ifstream myfile;
-	myfile.open(fname);
-
-	if(myfile.is_open()) {
-		std::cout << "opening file\n";
-		while(std::getline(myfile, line)) {
-			std::cout << line << "\n";
-		}
-		myfile.close();
-	} else {
-		std::cout << "file not open\n";
-	}
+void write_to_file(std::string filename, std::map<std::string, std::string> lines) {
+	std::cout << "TODO\n";
 }
 
 void display_help(boost::po::options_description desc) {

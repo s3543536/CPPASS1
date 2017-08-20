@@ -1,6 +1,6 @@
-SOURCES=main.cpp
-OBJECTS=main.o
-HEADERS=main.h
+SOURCES=main.cpp list_wrapper.cpp
+OBJECTS=main.o list_wrapper.o
+HEADERS=main.h list_wrapper.h
 PROGRAM=a.out
 CFLAGS=-lm -pedantic -Wall -std=c++14
 LDFLAGS=-lm -pedantic -Wall -std=c++14 -lboost_program_options
