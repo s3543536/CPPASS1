@@ -1,19 +1,24 @@
 #ifndef LISTWRAP
 #define LISTWRAP
 
+#include "edit_distance.h"
 #include <boost/program_options.hpp>
 #include <boost/tokenizer.hpp>
+#include <boost/algorithm/string.hpp>
+
+#include <iostream>
 #include <string>
 #include <list>
 #include <map>
-#include <iostream>
 #include <fstream>
+#include <algorithm>
 
 extern const char* DELIMS;
 extern bool optimise_with_map;
 
 class list_wrapper {
 public:
+	std::string tolower(std::string);
 	std::list<std::string> load_dict(std::string file_name);
 	std::list<std::string> load_text(std::string file_name);
 	std::map<std::string, int> count_words(std::list<std::string> dict, std::list<std::string> text);

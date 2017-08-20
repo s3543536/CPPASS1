@@ -59,12 +59,20 @@ int main(int argc, char **argv) {
 		std::cout << "list data structure\n";
 	} else if(data_str == "vector") {
 		std::cout << "vector data structure\n";
+		std::cout << "NYI\n";
+		return EXIT_SUCCESS;
 	} else if(data_str == "set") {
 		std::cout << "set data structure\n";
+		std::cout << "NYI\n";
+		return EXIT_SUCCESS;
 	} else if(data_str == "custom_list") {
 		std::cout << "custom_list data structure\n";
+		std::cout << "NYI\n";
+		return EXIT_SUCCESS;
 	} else if(data_str == "custom_tree"){
 		std::cout << "custom_tree data structure\n";
+		std::cout << "NYI\n";
+		return EXIT_SUCCESS;
 	} else {
 		display_help(desc);
 		return EXIT_SUCCESS;
@@ -73,38 +81,44 @@ int main(int argc, char **argv) {
 	list_wrapper wrap;
 
 	std::list<std::string> dict = wrap.load_dict(var_map["dictionary"].as<std::string>());
+	if(dict.size() < 1) {
+		std::cout << "Can't open Dictionary File\n";
+		return EXIT_SUCCESS;
+	}
 	std::list<std::string> text = wrap.load_text(var_map["text"].as<std::string>());
+	if(text.size() < 1) {
+		std::cout << "Can't open Text File\n";
+		return EXIT_SUCCESS;
+	}
 
 	std::cout << "starting dictionary search\n";
 	std::map<std::string, int> countmap = wrap.count_words(dict, text);
-	std::cout << "ending dictionary search\n";
+	std::cout << "finished dictionary search\n";
 
 	std::cout << "starting count\n";
 	std::map<std::string, std::string> wordmap = wrap.check_words(dict, countmap);
-	std::cout << "ending count\n";
+	std::cout << "finished count\n";
 
-	/*
-	for(auto it = outmap.begin(); it != outmap.end(); it++) {
-		std::cout << "asdf\t";
-		std::cout << it->first << ": " << it->second << "\n";
-	}*/
+	write_to_file(var_map["output"].as<std::string>(), wordmap);
 
-/*
-	for(auto it = dict.begin(); it != dict.end(); it++) {
-		std::cout << "\t" << *it << "\n";
-	}
-*/
-/*
-	for(auto it = text.begin(); it != text.end(); it++) {
-		std::cout << "\t" << *it << "\n";
-	}
-*/
+
 	return EXIT_SUCCESS;
 }
 
-void write_to_file(std::string filename, std::map<std::string, std::string> lines) {
-	std::cout << "TODO\n";
+void write_to_file(std::string file_name, std::map<std::string, std::string> lines) {
+	std::ofstream myfile(file_name);
+	
+	if(myfile.is_open()) {
+		for(auto it = lines.begin(); it != lines.end(); it++) {
+			//std::cout << it->second << "\t";
+			myfile << it->first << ": " << it->second << "\n";
+		}
+		myfile.close();
+	} else {
+		std::cout << "can't open file\n";
+	}
 }
+
 
 void display_help(boost::po::options_description desc) {
 	std::cout << desc << std::endl;
