@@ -1,5 +1,5 @@
-#ifndef LISTWRAP
-#define LISTWRAP
+#ifndef CUSTLISTWRAP
+#define CUSTLISTWRAP
 
 #include "edit_distance.h"
 #include <boost/program_options.hpp>
@@ -16,7 +16,7 @@
 extern const char* DELIMS;
 extern bool optimise_with_map;
 
-class list_wrapper {
+class custom_list_wrapper {
 public:
 	std::list<std::string> load_dict(std::string file_name);
 	std::list<std::string> load_text(std::string file_name);
