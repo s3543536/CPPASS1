@@ -8,7 +8,7 @@ CC=g++
 
 all: $(PROGRAM)
 
-%.o: %.c $(HEADERS)
+%.o: %.cpp $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(PROGRAM): $(OBJECTS)
