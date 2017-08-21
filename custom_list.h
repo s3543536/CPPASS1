@@ -20,8 +20,8 @@ class linked_list
 
 	//friend struct iterator;
 
-    int this_size;
     std::unique_ptr<node> head;
+    int this_size;
     public:
     linked_list(void) : head(nullptr), this_size(0) {}
     bool add(std::string);
