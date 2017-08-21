@@ -4,23 +4,23 @@
 //bool optimise_with_map = true;
 
 
-std::string custom_list_wrapper::closest_match(std::list<std::string> dict, std::string word) {
+std::string custom_list_wrapper::closest_match(linked_list const& dict, std::string word) {
 	//edit_distance::calculate(str1, str2);
-	int min = (int)dict.size();
-	std::string *shortest = &word;
+	int min = INT_MAX;
+	std::string shortest = word;
 
 	for(auto it = dict.begin(); it != dict.end(); it++) {
 		//std::cout << "calculating the distance between: " << word << ", " << *it << "\n";
-		int asdf = std::min(min, edit_distance::calculate(word, *it));
+		int asdf = std::min(min, edit_distance::calculate(word, (*it).get_data()));
 		if(asdf < min) {
 			min = asdf;
-			shortest = &(*it);
+			shortest = (*it).get_data();
 		}
 	}
-	return *shortest;
+	return shortest;
 }
 
-std::map<std::string, std::string> custom_list_wrapper::check_words(std::list<std::string> dict, std::map<std::string, int> w_counts) {
+std::map<std::string, std::string> custom_list_wrapper::check_words(linked_list const& dict, std::map<std::string, int> w_counts) {
 	std::map<std::string, std::string> map;
 	//list dict
 	//map w_counts
@@ -38,43 +38,43 @@ std::map<std::string, std::string> custom_list_wrapper::check_words(std::list<st
 	return map;
 }
 
-std::map<std::string, int> custom_list_wrapper::count_words(std::list<std::string> dict, std::list<std::string> text) {
+std::map<std::string, int> custom_list_wrapper::count_words(linked_list const& dict, linked_list const& text) {
 	std::map<std::string, int> map;
 	//std::cout << "empty map test: " << out["test"] << "\n";
 	for(auto text_it = text.begin(); text_it != text.end(); text_it++) {
 		//check: *text_it
 		bool match = false;
 		
-		if(optimise_with_map && map[*text_it] != 0) {
-			if(map[*text_it] > 0) {
+		if(optimise_with_map && map[(*text_it).get_data()] != 0) {
+			if(map[(*text_it).get_data()] > 0) {
 				//its in dict
-				map[*text_it]++;
+				map[(*text_it).get_data()]++;
 			} else {
 				//its not in dict
-				map[*text_it]--;
+				map[(*text_it).get_data()]--;
 			}
 		}
-		if(!optimise_with_map || map[*text_it] == 0) {
+		if(!optimise_with_map || map[(*text_it).get_data()] == 0) {
 			for(auto dict_it = dict.begin(); dict_it != dict.end(); dict_it++) {
-				if(*dict_it == *text_it) {
+				if((*dict_it).get_data() == (*text_it).get_data()) {
 					//match!
 					match = true;
 					//add to map value
-					map[*text_it]++;
+					map[(*text_it).get_data()]++;
 					break;
 				}
 			}
 			if(!match) {
 				//add to map with -1
-				map[*text_it]--;
+				map[(*text_it).get_data()]--;
 			}
 		}
 	}
 	return map;
 }
 
-std::list<std::string> custom_list_wrapper::load_text(std::string file_name) {
-	std::list<std::string> text;
+linked_list custom_list_wrapper::load_text(std::string file_name) {
+	linked_list text;
 	std::string line;
 
 	std::ifstream myfile(file_name);
@@ -88,7 +88,7 @@ std::list<std::string> custom_list_wrapper::load_text(std::string file_name) {
 
 			for(auto it = toks.begin(); it != toks.end(); it++) {
 				//add each token into the list
-				text.push_back(boost::algorithm::to_lower_copy(*it));
+				text.add(boost::algorithm::to_lower_copy(*it));
 			}
 		}
 
@@ -98,8 +98,8 @@ std::list<std::string> custom_list_wrapper::load_text(std::string file_name) {
 	return text;
 }
 
-std::list<std::string> custom_list_wrapper::load_dict(std::string file_name) {
-	std::list<std::string> dict;
+linked_list custom_list_wrapper::load_dict(std::string file_name) {
+	linked_list dict;
 	std::string line;
 
 	std::ifstream myfile(file_name);
@@ -107,7 +107,7 @@ std::list<std::string> custom_list_wrapper::load_dict(std::string file_name) {
 
 		//std::cout << "opening file\n";
 		while(std::getline(myfile, line)) {
-			dict.push_back(line);
+			dict.add(line);
 		}
 
 		//std::cout << "closing file\n";

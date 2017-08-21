@@ -15,7 +15,13 @@ int main(int argc, char **argv) {
 		("output,o", boost::po::value<std::string>()->default_value("./output.txt"), "specify output file");
 		//("compression,c", boost::po::value<int>()->default_value(10), "[int] set compression level");
 
+	custom_list_wrapper wrap1;
+	custom_list_wrapper wrap2;
+	std::unique_ptr<custom_list_wrapper> wr1 = std::make_unique<custom_list_wrapper>(wrap1);
+	std::unique_ptr<custom_list_wrapper> wr2 = std::make_unique<custom_list_wrapper>(wrap2);
 
+	wr2.reset(wr1.release());
+	//wr2 = std::move(wr1);
 
 	//store the command into a variable map and catch bad syntax
 	boost::po::variables_map var_map;
