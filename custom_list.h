@@ -21,14 +21,13 @@ class linked_list
 	//friend struct iterator;
 
     int this_size;
-	public:
     std::unique_ptr<node> head;
     public:
     linked_list(void) : head(nullptr), this_size(0) {}
     bool add(std::string);
     bool search(std::string);
 	int size() const;
-
+/*
 	struct iterator {
 		std::unique_ptr<node> *curr;
 
@@ -44,5 +43,5 @@ class linked_list
 
 	};
 	iterator begin() const;
-	iterator end() const;
+	iterator end() const;*/
 };

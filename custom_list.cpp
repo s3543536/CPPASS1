@@ -7,6 +7,7 @@ ll::iterator(std::unique_ptr<ll::node> curr = nullptr) : curr(curr) {
 	this.curr = curr;
 }
 */
+/*
 bool ll::iterator::operator != (const iterator &it) const {
 	return it.curr != curr;
 }
@@ -14,12 +15,14 @@ bool ll::iterator::operator != (const iterator &it) const {
 ll::node const& ll::iterator::operator * () const {
 	return *curr->get();
 }
+*/
 /*
    ll::node ll::iterator::operator -> () {
 	return *curr.get();
 }
 */
 //pre
+/*
 ll::iterator &ll::iterator::operator ++ () {
 	curr = &curr->get()->next;
 	return *this;
@@ -29,7 +32,7 @@ ll::iterator &ll::iterator::operator ++ (int) {
 	curr = &curr->get()->next;
 	return *this;
 }
-	
+
 
 ll::iterator begin() {
 	return iterator(ll::head);
@@ -38,6 +41,7 @@ ll::iterator begin() {
 ll::iterator end() {
 	return iterator(nullptr);
 }
+*/
 
 /* && means change of ownership */
 void ll::node::set_next(std::unique_ptr<ll::node>&& newnext)
