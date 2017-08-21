@@ -18,7 +18,7 @@ class linked_list
         friend class linked_list;
     };
 
-	//friend struct iterator;
+	friend struct iterator;
 
     int this_size;
     std::unique_ptr<node> head;
@@ -27,7 +27,7 @@ class linked_list
     bool add(std::string);
     bool search(std::string);
 	int size() const;
-/*
+
 	struct iterator {
 		std::unique_ptr<node> *curr;
 
@@ -43,5 +43,5 @@ class linked_list
 
 	};
 	iterator begin() const;
-	iterator end() const;*/
+	iterator end() const;
 };
