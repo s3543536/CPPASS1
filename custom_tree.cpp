@@ -23,14 +23,85 @@ bst::node const& bst::iterator::operator * () const {
 }
 */
 //pre
-/*
 bst::iterator &bst::iterator::operator ++ () {
-	curr = &curr->get()->next;
+	if(prev->get() == curr->get()->parent.get()) {
+		//prev == parent
+		if(curr->get()->left != nullptr) {
+			//go left
+			prev = curr;
+			curr = &(curr->get()->left);
+		} else if(curr->get()->right != nullptr) {
+			//go right
+			prev = curr;
+			curr = &(curr->get()->right);
+		} else {
+			//go up
+			prev = curr;
+			curr = &(curr->get()->parent);
+		}
+	} else if(prev->get() == curr->get()->left.get()) {
+		//prev == left
+		if(curr->get()->right != nullptr) {
+			//go right
+			prev = curr;
+			curr = &(curr->get()->right);
+		} else {
+			//go up
+			prev = curr;
+			curr = &(curr->get()->parent);
+		}
+	} else {
+		//prev == right
+		if(curr->get()->parent != nullptr) {
+			//go up
+			prev = curr;
+			curr = &(curr->get()->parent);
+		} else {
+			//at head, you have been right, finish
+			curr = nullptr;
+		}
+	}
 	return *this;
 }
 //post
 bst::iterator &bst::iterator::operator ++ (int) {
-	curr = &curr->get()->next;
+	if(prev->get() == curr->get()->parent.get()) {
+		//prev == parent
+		if(curr->get()->left != nullptr) {
+			//go left
+			prev = curr;
+			curr = &(curr->get()->left);
+		} else if(curr->get()->right != nullptr) {
+			//go right
+			prev = curr;
+			curr = &(curr->get()->right);
+		} else {
+			//go up
+			prev = curr;
+			curr = &(curr->get()->parent);
+		}
+	} else if(prev->get() == curr->get()->left.get()) {
+		//prev == left
+		if(curr->get()->right != nullptr) {
+			//go right
+			prev = curr;
+			curr = &(curr->get()->right);
+		} else {
+			//go up
+			prev = curr;
+			curr = &(curr->get()->parent);
+		}
+	} else {
+		//prev == right
+		if(curr->get()->parent != nullptr) {
+			//go up
+			prev = curr;
+			curr = &(curr->get()->parent);
+		} else {
+			//at head, you have been right, finish
+			curr = nullptr;
+		}
+	}
 	return *this;
 }
 
