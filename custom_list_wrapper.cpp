@@ -9,12 +9,12 @@ std::string custom_list_wrapper::closest_match(linked_list const& dict, std::str
 	int min = INT_MAX;
 	std::string shortest = word;
 
-	for(auto it = dict.begin(); it != dict.end(); it++) {
+	for(auto it = dict.head.get(); it != nullptr; it = it->get_next()) {
 		//std::cout << "calculating the distance between: " << word << ", " << *it << "\n";
-		int asdf = std::min(min, edit_distance::calculate(word, (*it).get_data()));
+		int asdf = std::min(min, edit_distance::calculate(word, it->get_data()));
 		if(asdf < min) {
 			min = asdf;
-			shortest = (*it).get_data();
+			shortest = it->get_data();
 		}
 	}
 	return shortest;
@@ -41,21 +41,21 @@ std::map<std::string, std::string> custom_list_wrapper::check_words(linked_list 
 std::map<std::string, int> custom_list_wrapper::count_words(linked_list const& dict, linked_list const& text) {
 	std::map<std::string, int> map;
 	//std::cout << "empty map test: " << out["test"] << "\n";
-	for(auto text_it = text.begin(); text_it != text.end(); text_it++) {
+	for(auto text_it = text.head.get(); text_it != nullptr; text_it = text_it->get_next()) {
 		//check: *text_it
 		bool match = false;
 		
-		if(optimise_with_map && map[(*text_it).get_data()] != 0) {
-			if(map[(*text_it).get_data()] > 0) {
+		if(optimise_with_map && map[text_it->get_data()] != 0) {
+			if(map[text_it->get_data()] > 0) {
 				//its in dict
-				map[(*text_it).get_data()]++;
+				map[text_it->get_data()]++;
 			} else {
 				//its not in dict
-				map[(*text_it).get_data()]--;
+				map[text_it->get_data()]--;
 			}
 		}
-		if(!optimise_with_map || map[(*text_it).get_data()] == 0) {
-			for(auto dict_it = dict.begin(); dict_it != dict.end(); dict_it++) {
+		if(!optimise_with_map || map[text_it->get_data()] == 0) {
+			for(auto dict_it = dict.head.get(); dict_it != nullptr; dict_it = dict_it->get_next()) {
 				if((*dict_it).get_data() == (*text_it).get_data()) {
 					//match!
 					match = true;

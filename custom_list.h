@@ -14,12 +14,13 @@ class linked_list
         void set_next(std::unique_ptr<node>&& newnext);
         node * get_next(void) const;
         std::string get_data(void) const;
-        std::unique_ptr<node>& get_next_ptr(void) const;
+        std::unique_ptr<node>& get_next_ptr(void);
         friend class linked_list;
     };
 
 	//friend struct iterator;
 
+	public:
     std::unique_ptr<node> head;
     int this_size;
     public:

@@ -49,11 +49,11 @@ void ll::node::set_next(std::unique_ptr<ll::node>&& newnext)
     next = std::move(newnext);
 }
 
-int ll::size() {
+int ll::size() const {
 	return this_size;
 }
 
-ll::node * ll::node::get_next(void)
+ll::node * ll::node::get_next(void) const
 {
     return next.get();
 }
@@ -63,7 +63,7 @@ std::unique_ptr<ll::node>& ll::node::get_next_ptr(void)
     return next;
 }
 
-std::string ll::node::get_data(void)
+std::string ll::node::get_data(void) const
 {
     return data;
 }
