@@ -4,45 +4,117 @@ using bst=binary_search_tree;
 
 
 /*
-bst::iterator(std::unique_ptr<bst::node> curr = nullptr) : curr(curr) {
+bst::iterator(std::unique_ptr<bst::node> curr = nullptr) : curr(other), prev(nullptr) {
 	this.curr = curr;
 }
 */
-/*
+
 bool bst::iterator::operator != (const iterator &it) const {
 	return it.curr != curr;
 }
 
-bst::node const& bst::iterator::operator * () const {
-	return *curr->get();
+bst::node * bst::iterator::operator * () const {
+	return curr->get();
 }
-*/
+
 /*
    bst::node bst::iterator::operator -> () {
 	return *curr.get();
 }
 */
+
 //pre
-/*
 bst::iterator &bst::iterator::operator ++ () {
-	curr = &curr->get()->next;
+	if(prev->get() == curr->get()->parent.get()) {
+		//prev == parent
+		if(curr->get()->left != nullptr) {
+			//go left
+			prev = curr;
+			curr = &(curr->get()->left);
+		} else if(curr->get()->right != nullptr) {
+			//go right
+			prev = curr;
+			curr = &(curr->get()->right);
+		} else {
+			//go up
+			prev = curr;
+			curr = &(curr->get()->parent);
+		}
+	} else if(prev->get() == curr->get()->left.get()) {
+		//prev == left
+		if(curr->get()->right != nullptr) {
+			//go right
+			prev = curr;
+			curr = &(curr->get()->right);
+		} else {
+			//go up
+			prev = curr;
+			curr = &(curr->get()->parent);
+		}
+	} else {
+		//prev == right
+		if(curr->get()->parent != nullptr) {
+			//go up
+			prev = curr;
+			curr = &(curr->get()->parent);
+		} else {
+			//at head, you have been right, finish
+			curr = nullptr;
+		}
+	}
 	return *this;
 }
 //post
 bst::iterator &bst::iterator::operator ++ (int) {
-	curr = &curr->get()->next;
+	if(prev->get() == curr->get()->parent.get()) {
+		//prev == parent
+		if(curr->get()->left != nullptr) {
+			//go left
+			prev = curr;
+			curr = &(curr->get()->left);
+		} else if(curr->get()->right != nullptr) {
+			//go right
+			prev = curr;
+			curr = &(curr->get()->right);
+		} else {
+			//go up
+			prev = curr;
+			curr = &(curr->get()->parent);
+		}
+	} else if(prev->get() == curr->get()->left.get()) {
+		//prev == left
+		if(curr->get()->right != nullptr) {
+			//go right
+			prev = curr;
+			curr = &(curr->get()->right);
+		} else {
+			//go up
+			prev = curr;
+			curr = &(curr->get()->parent);
+		}
+	} else {
+		//prev == right
+		if(curr->get()->parent != nullptr) {
+			//go up
+			prev = curr;
+			curr = &(curr->get()->parent);
+		} else {
+			//at head, you have been right, finish
+			curr = nullptr;
+		}
+	}
 	return *this;
 }
 
 
-bst::iterator begin() {
-	return iterator(bst::head);
+bst::iterator bst::begin() const {
+	return bst::iterator(*this);
 }
 
-bst::iterator end() {
-	return iterator(nullptr);
+bst::iterator bst::end() const {
+	return bst::iterator(*this, nullptr);
 }
-*/
+
 
 /* && means change of ownership */
 void bst::node::set_left(std::unique_ptr<bst::node>&& newnext)

@@ -35,21 +35,23 @@ class binary_search_tree
     bool add(std::string);
     bool search(std::string);
 	int size() const;
-/*
-	struct iterator {
-		std::unique_ptr<node> *curr;
 
-		iterator(std::unique_ptr<node> other) : curr(&other) {
-			//curr = &other;
-		}
+	struct iterator {
+		binary_search_tree * const parent;
+		std::unique_ptr<node> *curr;
+		std::unique_ptr<node> *prev;
+
+		iterator(binary_search_tree const& parent) : parent(&parent), curr(&(parent.head)), prev(nullptr) {}
+		iterator(binary_search_tree const& parent, std::unique_ptr<node> *other) : parent(&parent), curr(other), prev(nullptr) {}
+
 
 		bool operator != (const iterator &it) const;
-		node const& operator * () const;
+		node * operator * () const;
 		//node operator -> () const;
 		iterator &operator ++ ();
 		iterator &operator ++ (int);
 
 	};
 	iterator begin() const;
-	iterator end() const;*/
+	iterator end() const;
 };
