@@ -1,26 +1,26 @@
-#include "tree_wrapper.h"
+#include "custom_tree_wrapper.h"
 
-const char* DELIMS = " 1234567890!@#$%^&*()_+=[{}]\\|;:'\"<>,./?\t";
-bool optimise_with_map = true;
+//const char* DELIMS = " 1234567890!@#$%^&*()_+=[{}]\\|;:'\"<>,./?\t";
+//bool optimise_with_map = true;
 
 
-std::string list_wrapper::closest_match(std::list<std::string> dict, std::string word) {
+std::string custom_list_wrapper::closest_match(binary_search_tree const& dict, std::string word) {
 	//edit_distance::calculate(str1, str2);
-	int min = (int)dict.size();
-	std::string *shortest = &word;
+	int min = INT_MAX;
+	std::string shortest = word;
 
-	for(auto it = dict.begin(); it != dict.end(); it++) {
+	for(auto it = dict.head.get(); it != nullptr; it = it->get_next()) {
 		//std::cout << "calculating the distance between: " << word << ", " << *it << "\n";
-		int asdf = std::min(min, edit_distance::calculate(word, *it));
+		int asdf = std::min(min, edit_distance::calculate(word, it->get_data()));
 		if(asdf < min) {
 			min = asdf;
-			shortest = &(*it);
+			shortest = it->get_data();
 		}
 	}
-	return *shortest;
+	return shortest;
 }
 
-std::map<std::string, std::string> list_wrapper::check_words(std::list<std::string> dict, std::map<std::string, int> w_counts) {
+std::map<std::string, std::string> custom_list_wrapper::check_words(binary_search_tree const& dict, std::map<std::string, int> w_counts) {
 	std::map<std::string, std::string> map;
 	//list dict
 	//map w_counts
@@ -38,43 +38,43 @@ std::map<std::string, std::string> list_wrapper::check_words(std::list<std::stri
 	return map;
 }
 
-std::map<std::string, int> list_wrapper::count_words(std::list<std::string> dict, std::list<std::string> text) {
+std::map<std::string, int> custom_list_wrapper::count_words(binary_search_tree const& dict, binary_search_tree const& text) {
 	std::map<std::string, int> map;
 	//std::cout << "empty map test: " << out["test"] << "\n";
-	for(auto text_it = text.begin(); text_it != text.end(); text_it++) {
+	for(auto text_it = text.head.get(); text_it != nullptr; text_it = text_it->get_next()) {
 		//check: *text_it
 		bool match = false;
 		
-		if(optimise_with_map && map[*text_it] != 0) {
-			if(map[*text_it] > 0) {
+		if(optimise_with_map && map[text_it->get_data()] != 0) {
+			if(map[text_it->get_data()] > 0) {
 				//its in dict
-				map[*text_it]++;
+				map[text_it->get_data()]++;
 			} else {
 				//its not in dict
-				map[*text_it]--;
+				map[text_it->get_data()]--;
 			}
 		}
-		if(!optimise_with_map || map[*text_it] == 0) {
-			for(auto dict_it = dict.begin(); dict_it != dict.end(); dict_it++) {
-				if(*dict_it == *text_it) {
+		if(!optimise_with_map || map[text_it->get_data()] == 0) {
+			for(auto dict_it = dict.head.get(); dict_it != nullptr; dict_it = dict_it->get_next()) {
+				if((*dict_it).get_data() == (*text_it).get_data()) {
 					//match!
 					match = true;
 					//add to map value
-					map[*text_it]++;
+					map[(*text_it).get_data()]++;
 					break;
 				}
 			}
 			if(!match) {
 				//add to map with -1
-				map[*text_it]--;
+				map[(*text_it).get_data()]--;
 			}
 		}
 	}
 	return map;
 }
 
-std::list<std::string> list_wrapper::load_text(std::string file_name) {
-	std::list<std::string> text;
+binary_search_tree custom_list_wrapper::load_text(std::string file_name) {
+	binary_search_tree text;
 	std::string line;
 
 	std::ifstream myfile(file_name);
@@ -88,7 +88,7 @@ std::list<std::string> list_wrapper::load_text(std::string file_name) {
 
 			for(auto it = toks.begin(); it != toks.end(); it++) {
 				//add each token into the list
-				text.push_back(boost::algorithm::to_lower_copy(*it));
+				text.add(boost::algorithm::to_lower_copy(*it));
 			}
 		}
 
@@ -98,8 +98,8 @@ std::list<std::string> list_wrapper::load_text(std::string file_name) {
 	return text;
 }
 
-std::list<std::string> list_wrapper::load_dict(std::string file_name) {
-	std::list<std::string> dict;
+binary_search_tree custom_list_wrapper::load_dict(std::string file_name) {
+	binary_search_tree dict;
 	std::string line;
 
 	std::ifstream myfile(file_name);
@@ -107,7 +107,7 @@ std::list<std::string> list_wrapper::load_dict(std::string file_name) {
 
 		//std::cout << "opening file\n";
 		while(std::getline(myfile, line)) {
-			dict.push_back(line);
+			dict.add(line);
 		}
 
 		//std::cout << "closing file\n";

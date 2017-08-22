@@ -3,7 +3,7 @@
 #include <iostream>
 #include <memory>
 #include "list_wrapper.h"
-#include "tree_wrapper.h"
+#include "custom_tree_wrapper.h"
 #include "custom_list_wrapper.h"
 
 void display_help(boost::program_options::options_description);

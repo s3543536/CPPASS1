@@ -2,77 +2,103 @@
 /* new typedef */
 using bst=binary_search_tree;
 
+
 /*
-ll::iterator(std::unique_ptr<ll::node> curr = nullptr) : curr(curr) {
+bst::iterator(std::unique_ptr<bst::node> curr = nullptr) : curr(curr) {
 	this.curr = curr;
 }
 */
 /*
-bool ll::iterator::operator != (const iterator &it) const {
+bool bst::iterator::operator != (const iterator &it) const {
 	return it.curr != curr;
 }
 
-ll::node const& ll::iterator::operator * () const {
+bst::node const& bst::iterator::operator * () const {
 	return *curr->get();
 }
 */
 /*
-   ll::node ll::iterator::operator -> () {
+   bst::node bst::iterator::operator -> () {
 	return *curr.get();
 }
 */
 //pre
 /*
-ll::iterator &ll::iterator::operator ++ () {
+bst::iterator &bst::iterator::operator ++ () {
 	curr = &curr->get()->next;
 	return *this;
 }
 //post
-ll::iterator &ll::iterator::operator ++ (int) {
+bst::iterator &bst::iterator::operator ++ (int) {
 	curr = &curr->get()->next;
 	return *this;
 }
 
 
-ll::iterator begin() {
-	return iterator(ll::head);
+bst::iterator begin() {
+	return iterator(bst::head);
 }
 
-ll::iterator end() {
+bst::iterator end() {
 	return iterator(nullptr);
 }
 */
 
 /* && means change of ownership */
-void ll::node::set_next(std::unique_ptr<ll::node>&& newnext)
+void bst::node::set_left(std::unique_ptr<bst::node>&& newnext)
 {
-    next = std::move(newnext);
+    left = std::move(newnext);
 }
 
-int ll::size() const {
+void bst::node::set_right(std::unique_ptr<bst::node>&& newnext)
+{
+    right = std::move(newnext);
+}
+
+int bst::size() const {
 	return this_size;
 }
 
-ll::node * ll::node::get_next(void) const
+bst::node * bst::node::get_left(void) const
 {
-    return next.get();
+    return left.get();
 }
 
-std::unique_ptr<ll::node>& ll::node::get_next_ptr(void)
+bst::node * bst::node::get_right(void) const
 {
-    return next;
+    return right.get();
 }
 
-std::string ll::node::get_data(void) const
+bst::node * bst::node::get_parent(void) const
+{
+    return parent.get();
+}
+
+std::string bst::node::get_data(void) const
 {
     return data;
 }
 
-bool ll::add(std::string data)
+std::unique_ptr<bst::node>& bst::node::get_left_ptr(void)
+{
+    return left;
+}
+
+std::unique_ptr<bst::node>& bst::node::get_right_ptr(void)
+{
+    return right;
+}
+
+std::unique_ptr<bst::node>& bst::node::get_parent_ptr(void)
+{
+    return parent;
+}
+
+bool bst::add(std::string data)
 {
     node * current;
     node * prev = nullptr;
-    std::unique_ptr<ll::node> newnode = std::make_unique<ll::node>(data);
+    std::unique_ptr<bst::node> newnode = std::make_unique<bst::node>(data);
     if(head == nullptr)
     {
         head = std::move(newnode);
@@ -80,11 +106,35 @@ bool ll::add(std::string data)
         return true;
     }
     current = head.get();//get the pointer held by the unique_ptr
-    while(current && current->data < data)
+    while(current != nullptr)
     {
-        prev = current;
-        current = current->get_next();
-    }
+
+		if(current->data <= data) {
+			if(current->left != nullptr) {
+				//go left
+				prev = current;
+				current = current->get_left();
+			} else {
+				//insert left
+				prev->set_left(std::move(newnode));
+				break;
+			}
+		} else {
+			if(current->right != nullptr) {
+				//go right
+				prev = current;
+				current = current->get_right();
+			} else {
+				//insert right
+				prev->set_right(std::move(newnode));
+				break;
+			}
+		}
+
+
+        //prev = current;
+        //current = current->get_next();
+    }/*
     if(!prev)
     {
         newnode->set_next(std::move(head));
@@ -98,12 +148,13 @@ bool ll::add(std::string data)
     {
         newnode->set_next(std::move(prev->get_next_ptr()));
         prev->set_next(std::move(newnode));
-    }
+    }*/
     ++this_size;
     return true;
 }
 
-bool ll::search(std::string needle)
+
+bool bst::search(std::string needle)
 {
 	node *current;
 	if(head == nullptr) {
@@ -112,7 +163,11 @@ bool ll::search(std::string needle)
 	current = head.get();
 
 	while(current != nullptr && current->get_data() != needle) {
-		current = current->get_next();
+		if(current->get_data() < needle) {
+			current = current->get_left();
+		} else {
+			current = current->get_right();
+		}
 	}
     return current != nullptr;
 }
