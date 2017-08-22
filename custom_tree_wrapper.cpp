@@ -3,8 +3,8 @@
 //const char* DELIMS = " 1234567890!@#$%^&*()_+=[{}]\\|;:'\"<>,./?\t";
 //bool optimise_with_map = true;
 
-
-std::string custom_list_wrapper::closest_match(binary_search_tree const& dict, std::string word) {
+/*
+std::string custom_tree_wrapper::closest_match(binary_search_tree const& dict, std::string word) {
 	//edit_distance::calculate(str1, str2);
 	int min = INT_MAX;
 	std::string shortest = word;
@@ -20,7 +20,7 @@ std::string custom_list_wrapper::closest_match(binary_search_tree const& dict, s
 	return shortest;
 }
 
-std::map<std::string, std::string> custom_list_wrapper::check_words(binary_search_tree const& dict, std::map<std::string, int> w_counts) {
+std::map<std::string, std::string> custom_tree_wrapper::check_words(binary_search_tree const& dict, std::map<std::string, int> w_counts) {
 	std::map<std::string, std::string> map;
 	//list dict
 	//map w_counts
@@ -38,7 +38,7 @@ std::map<std::string, std::string> custom_list_wrapper::check_words(binary_searc
 	return map;
 }
 
-std::map<std::string, int> custom_list_wrapper::count_words(binary_search_tree const& dict, binary_search_tree const& text) {
+std::map<std::string, int> custom_tree_wrapper::count_words(binary_search_tree const& dict, binary_search_tree const& text) {
 	std::map<std::string, int> map;
 	//std::cout << "empty map test: " << out["test"] << "\n";
 	for(auto text_it = text.head.get(); text_it != nullptr; text_it = text_it->get_next()) {
@@ -71,9 +71,9 @@ std::map<std::string, int> custom_list_wrapper::count_words(binary_search_tree c
 		}
 	}
 	return map;
-}
+}*/
 
-binary_search_tree custom_list_wrapper::load_text(std::string file_name) {
+binary_search_tree custom_tree_wrapper::load_text(std::string file_name) {
 	binary_search_tree text;
 	std::string line;
 
@@ -98,7 +98,7 @@ binary_search_tree custom_list_wrapper::load_text(std::string file_name) {
 	return text;
 }
 
-binary_search_tree custom_list_wrapper::load_dict(std::string file_name) {
+binary_search_tree custom_tree_wrapper::load_dict(std::string file_name) {
 	binary_search_tree dict;
 	std::string line;
 

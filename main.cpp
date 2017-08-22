@@ -136,8 +136,23 @@ int main(int argc, char **argv) {
 
 		return EXIT_SUCCESS;
 	} else if(data_str == "custom_tree"){
+
+		custom_list_wrapper wrap;
 		std::cout << "custom_tree data structure\n";
-		std::cout << "NYI\n";
+
+		//load the files
+		linked_list dict = wrap.load_dict(var_map["dictionary"].as<std::string>());
+		if(dict.size() < 1) {
+			std::cout << "Can't open Dictionary File\n";
+			return EXIT_SUCCESS;
+		}
+		linked_list text = wrap.load_text(var_map["text"].as<std::string>());
+		if(text.size() < 1) {
+			std::cout << "Can't open Text File\n";
+			return EXIT_SUCCESS;
+		}
+		std::cout << "files successfully loaded\n";
+	
 		return EXIT_SUCCESS;
 	} else {
 		display_help(desc);
