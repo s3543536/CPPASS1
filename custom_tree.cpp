@@ -3,12 +3,6 @@
 using bst=binary_search_tree;
 
 
-/*
-bst::iterator(std::unique_ptr<bst::node> curr = nullptr) : curr(other), prev(nullptr) {
-	this.curr = curr;
-}
-*/
-
 bool bst::iterator::operator != (const iterator &it) const {
 	return it.curr != curr;
 }
@@ -16,12 +10,6 @@ bool bst::iterator::operator != (const iterator &it) const {
 bst::node * bst::iterator::operator * () const {
 	return curr->get();
 }
-
-/*
-   bst::node bst::iterator::operator -> () {
-	return *curr.get();
-}
-*/
 
 //pre
 bst::iterator &bst::iterator::operator ++ () {
@@ -202,25 +190,7 @@ bool bst::add(std::string data)
 				break;
 			}
 		}
-
-
-        //prev = current;
-        //current = current->get_next();
-    }/*
-    if(!prev)
-    {
-        newnode->set_next(std::move(head));
-        head = std::move(newnode);
     }
-    else if(!current)
-    {
-        prev->set_next(std::move(newnode));
-    }
-    else
-    {
-        newnode->set_next(std::move(prev->get_next_ptr()));
-        prev->set_next(std::move(newnode));
-    }*/
     ++this_size;
     return true;
 }

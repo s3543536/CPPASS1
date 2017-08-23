@@ -1,9 +1,5 @@
 #include "custom_tree_wrapper.h"
 
-//const char* DELIMS = " 1234567890!@#$%^&*()_+=[{}]\\|;:'\"<>,./?\t";
-//bool optimise_with_map = true;
-
-
 std::string custom_tree_wrapper::closest_match(binary_search_tree const& dict, std::string word) {
 	//edit_distance::calculate(str1, str2);
 	int min = INT_MAX;
