@@ -108,11 +108,11 @@ bst::iterator &bst::iterator::operator ++ (int) {
 
 
 bst::iterator bst::begin() const {
-	return bst::iterator(*this);
+	return bst::iterator(&(this->head));
 }
 
 bst::iterator bst::end() const {
-	return bst::iterator(*this, nullptr);
+	return bst::iterator(nullptr);
 }
 
 

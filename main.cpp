@@ -9,7 +9,7 @@ int main(int argc, char **argv) {
 	boost::po::options_description desc("Allowed Options");
 	desc.add_options()
 		("help,h", "produce help message")
-		("specify_data_structure,s", boost::po::value<std::string>()->default_value("custom_list"), "specify data structure, can be one of:\nlist, vector, set, custom_list or custom_tree")
+		("specify_data_structure,s", boost::po::value<std::string>()->default_value("custom_tree"), "specify data structure, can be one of:\nlist, vector, set, custom_list or custom_tree")
 		("dictionary,d", boost::po::value<std::string>()->default_value("./data/dict.dat"), "specify dictionary file")
 		("text,t", boost::po::value<std::string>()->default_value("./data/sml.txt"), "specify text file")
 		("output,o", boost::po::value<std::string>()->default_value("./output.txt"), "specify output file");
@@ -152,6 +152,24 @@ int main(int argc, char **argv) {
 			return EXIT_SUCCESS;
 		}
 		std::cout << "files successfully loaded\n";
+
+	
+		//count the words
+		std::cout << "starting dictionary search\n";
+		std::map<std::string, int> countmap = wrap.count_words(dict, text);
+		std::cout << "finished\n";
+	
+		//get the edit distance
+		std::cout << "starting edit distance check\n";
+		std::map<std::string, std::string> wordmap = wrap.check_words(dict, countmap);
+		std::cout << "finished\n";
+	
+		//write data
+		std::cout << "writing to file\n";
+		write_to_file(var_map["output"].as<std::string>(), wordmap);
+		std::cout << "finished\n";
+
+
 	
 		return EXIT_SUCCESS;
 	} else {
