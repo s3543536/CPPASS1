@@ -1,10 +1,6 @@
-#include "list_wrapper.h"
+#include "vector_wrapper.h"
 
-const char* DELIMS = " 1234567890!@#$%^&*()_+=[{}]\\|;:'\"<>,./?\t";
-bool optimise_with_map = true;
-
-
-std::string list_wrapper::closest_match(std::list<std::string> dict, std::string word) {
+std::string vector_wrapper::closest_match(std::vector<std::string> dict, std::string word) {
 	//edit_distance::calculate(str1, str2);
 	int min = (int)dict.size();
 	std::string *shortest = &word;
@@ -20,9 +16,9 @@ std::string list_wrapper::closest_match(std::list<std::string> dict, std::string
 	return *shortest;
 }
 
-std::map<std::string, std::string> list_wrapper::check_words(std::list<std::string> dict, std::map<std::string, int> w_counts) {
+std::map<std::string, std::string> vector_wrapper::check_words(std::vector<std::string> dict, std::map<std::string, int> w_counts) {
 	std::map<std::string, std::string> map;
-	//list dict
+	//vector dict
 	//map w_counts
 
 	for(auto it = w_counts.begin(); it != w_counts.end(); it++) {
@@ -38,7 +34,7 @@ std::map<std::string, std::string> list_wrapper::check_words(std::list<std::stri
 	return map;
 }
 
-std::map<std::string, int> list_wrapper::count_words(std::list<std::string> dict, std::list<std::string> text) {
+std::map<std::string, int> vector_wrapper::count_words(std::vector<std::string> dict, std::vector<std::string> text) {
 	std::map<std::string, int> map;
 	//std::cout << "empty map test: " << out["test"] << "\n";
 	for(auto text_it = text.begin(); text_it != text.end(); text_it++) {
@@ -73,8 +69,8 @@ std::map<std::string, int> list_wrapper::count_words(std::list<std::string> dict
 	return map;
 }
 
-std::list<std::string> list_wrapper::load_text(std::string file_name) {
-	std::list<std::string> text;
+std::vector<std::string> vector_wrapper::load_text(std::string file_name) {
+	std::vector<std::string> text;
 	std::string line;
 
 	std::ifstream myfile(file_name);
@@ -87,7 +83,7 @@ std::list<std::string> list_wrapper::load_text(std::string file_name) {
 			boost::tokenizer<boost::char_separator<char>> toks(line, delims);
 
 			for(auto it = toks.begin(); it != toks.end(); it++) {
-				//add each token into the list
+				//add each token into the vector
 				text.push_back(boost::algorithm::to_lower_copy(*it));
 			}
 		}
@@ -98,8 +94,8 @@ std::list<std::string> list_wrapper::load_text(std::string file_name) {
 	return text;
 }
 
-std::list<std::string> list_wrapper::load_dict(std::string file_name) {
-	std::list<std::string> dict;
+std::vector<std::string> vector_wrapper::load_dict(std::string file_name) {
+	std::vector<std::string> dict;
 	std::string line;
 
 	std::ifstream myfile(file_name);

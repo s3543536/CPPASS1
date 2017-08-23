@@ -66,43 +66,79 @@ std::map<std::string, int> custom_tree_wrapper::count_words(binary_search_tree c
 
 binary_search_tree custom_tree_wrapper::load_text(std::string file_name) {
 	binary_search_tree text;
-	std::string line;
 
-	std::ifstream myfile(file_name);
-	if(myfile.is_open()) {
+	if(shuffle_tree) {
+		vector_wrapper wrap;
+		std::random_device rd;
+		std::mt19937 gen(rd());
 
-		//std::cout << "opening file\n";
-		while(std::getline(myfile, line)) {
-			//tokenize each line and add into text
-			boost::char_separator<char> delims(DELIMS);
-			boost::tokenizer<boost::char_separator<char>> toks(line, delims);
+		//load into a vector
+		std::vector<std::string> vect = wrap.load_text(file_name);
 
-			for(auto it = toks.begin(); it != toks.end(); it++) {
-				//add each token into the list
-				text.add(boost::algorithm::to_lower_copy(*it));
-			}
+		//shuffle
+		std::shuffle(vect.begin(), vect.end(), gen);
+
+		//load into binary search tree
+		for(auto it = vect.begin(); it != vect.end(); it++) {
+			text.add(boost::algorithm::to_lower_copy(*it));
 		}
+	} else {
+		std::string line;
+		std::ifstream myfile(file_name);
 
-		//std::cout << "closing file\n";
-		myfile.close();
+		if(myfile.is_open()) {
+
+			//std::cout << "opening file\n";
+			while(std::getline(myfile, line)) {
+				//tokenize each line and add into text
+				boost::char_separator<char> delims(DELIMS);
+				boost::tokenizer<boost::char_separator<char>> toks(line, delims);
+
+				for(auto it = toks.begin(); it != toks.end(); it++) {
+					//add each token into the list
+					text.add(boost::algorithm::to_lower_copy(*it));
+				}
+			}
+
+			//std::cout << "closing file\n";
+			myfile.close();
+		}
 	}
 	return text;
 }
 
 binary_search_tree custom_tree_wrapper::load_dict(std::string file_name) {
 	binary_search_tree dict;
-	std::string line;
 
-	std::ifstream myfile(file_name);
-	if(myfile.is_open()) {
+	if(shuffle_tree) {
+		vector_wrapper wrap;
+		std::random_device rd;
+		std::mt19937 gen(rd());
 
-		//std::cout << "opening file\n";
-		while(std::getline(myfile, line)) {
-			dict.add(line);
+		//load into a vector
+		std::vector<std::string> vect = wrap.load_dict(file_name);
+
+		//shuffle
+		std::shuffle(vect.begin(), vect.end(), gen);
+
+		//load into binary search tree
+		for(auto it = vect.begin(); it != vect.end(); it++) {
+			dict.add(boost::algorithm::to_lower_copy(*it));
 		}
+	} else {
+		std::string line;
 
-		//std::cout << "closing file\n";
-		myfile.close();
+		std::ifstream myfile(file_name);
+		if(myfile.is_open()) {
+
+			//std::cout << "opening file\n";
+			while(std::getline(myfile, line)) {
+				dict.add(line);
+			}
+
+			//std::cout << "closing file\n";
+			myfile.close();
+		}
 	}
 	return dict;
 }

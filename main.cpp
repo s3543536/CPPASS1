@@ -2,6 +2,7 @@
 
 const char* DELIMS = " 1234567890!@#$%^&*()_+=[{}]\\|;:'\"<>,./?\t";
 bool optimise_with_map = true;
+bool shuffle_tree = true;
 
 #define po program_options
 //using po=program_options;
@@ -12,7 +13,7 @@ int main(int argc, char **argv) {
 	boost::po::options_description desc("Allowed Options");
 	desc.add_options()
 		("help,h", "produce help message")
-		("specify_data_structure,s", boost::po::value<std::string>()->default_value("list"), "specify data structure, can be one of:\nlist, vector, set, map, custom_list or custom_tree")
+		("specify_data_structure,s", boost::po::value<std::string>()->default_value("custom_tree"), "specify data structure, can be one of:\nlist, vector, set, map, custom_list or custom_tree")
 		("dictionary,d", boost::po::value<std::string>()->default_value("./data/dict.dat"), "specify dictionary file")
 		("text,t", boost::po::value<std::string>()->default_value("./data/sml.txt"), "specify text file")
 		("output,o", boost::po::value<std::string>()->default_value("./output.txt"), "specify output file");
@@ -98,8 +99,36 @@ int main(int argc, char **argv) {
 		return EXIT_SUCCESS;
 
 	} else if(data_str == "vector") {//std::vector
+		vector_wrapper wrap;
 		std::cout << "vector data structure\n";
-		std::cout << "NYI\n";
+
+		//load the files
+		std::vector<std::string> dict = wrap.load_dict(var_map["dictionary"].as<std::string>());
+		if(dict.size() < 1) {
+			std::cout << "Can't open Dictionary File\n";
+			return EXIT_SUCCESS;
+		}
+		std::vector<std::string> text = wrap.load_text(var_map["text"].as<std::string>());
+		if(text.size() < 1) {
+			std::cout << "Can't open Text File\n";
+			return EXIT_SUCCESS;
+		}
+	
+		//count the words
+		std::cout << "starting dictionary search\n";
+		std::map<std::string, int> countmap = wrap.count_words(dict, text);
+		std::cout << "finished\n";
+	
+		//get the edit distance
+		std::cout << "starting edit distance check\n";
+		std::map<std::string, std::string> wordmap = wrap.check_words(dict, countmap);
+		std::cout << "finished\n";
+	
+		//write data
+		std::cout << "writing to file\n";
+		write_to_file(var_map["output"].as<std::string>(), wordmap);
+		std::cout << "finished\n";
+
 		return EXIT_SUCCESS;
 	} else if(data_str == "set") {//std::set
 		std::cout << "set data structure\n";

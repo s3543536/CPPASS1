@@ -18,12 +18,12 @@ extern bool optimise_with_map;
 
 class vector_wrapper {
 public:
-	std::list<std::string> load_dict(std::string file_name);
-	std::list<std::string> load_text(std::string file_name);
-	std::map<std::string, int> count_words(std::list<std::string> dict, std::list<std::string> text);
-	std::map<std::string, std::string> check_words(std::list<std::string> dict, std::map<std::string, int> w_counts);
+	std::vector<std::string> load_dict(std::string file_name);
+	std::vector<std::string> load_text(std::string file_name);
+	std::map<std::string, int> count_words(std::vector<std::string> dict, std::vector<std::string> text);
+	std::map<std::string, std::string> check_words(std::vector<std::string> dict, std::map<std::string, int> w_counts);
 private:
-	std::string closest_match(std::list<std::string> dict, std::string word);
+	std::string closest_match(std::vector<std::string> dict, std::string word);
 };
 
 #endif

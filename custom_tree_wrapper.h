@@ -1,6 +1,7 @@
 #ifndef CUSTTREEWRAP
 #define CUSTTREEWRAP
 
+#include "vector_wrapper.h"
 #include "custom_tree.h"
 #include "edit_distance.h"
 #include <boost/program_options.hpp>
@@ -13,9 +14,12 @@
 #include <list>
 #include <fstream>
 #include <algorithm>
+#include <random>
+#include <iterator>
 
 extern const char* DELIMS;
 extern bool optimise_with_map;
+extern bool shuffle_tree;
 
 class custom_tree_wrapper {
 public:
