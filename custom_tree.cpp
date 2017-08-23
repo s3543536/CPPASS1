@@ -8,13 +8,71 @@ bool bst::iterator::operator != (const iterator &it) const {
 }
 
 bst::node * bst::iterator::operator * () const {
-	return curr->get();
+	if(curr != nullptr) {
+		return curr->get();
+	} else {
+		return nullptr;
+	}
 }
 
 bst::node * bst::iterator::operator -> () const {
-	return curr->get();
+	if(curr != nullptr) {
+		return curr->get();
+	} else {
+		return nullptr;
+	}
 }
 
+//pre
+bst::iterator &bst::iterator::operator ++ () {
+	prev = curr;
+	curr = queue.front();
+	queue.pop_front();
+	int a = 0;
+	itcount++;
+
+	if(curr->get()->left != nullptr) {
+		std::cout << itcount << "p left";
+		queue.push_back(&(curr->get()->left));
+		a++;
+	}
+	if(curr->get()->right != nullptr) {
+		std::cout << "\t\tp right"<< itcount ;
+		queue.push_back(&(curr->get()->right));
+		a++;
+	}
+	std::cout << "\n";
+	if(a == 0) {
+		curr = nullptr;
+	}
+	return *this;
+}
+//post
+bst::iterator &bst::iterator::operator ++ (int) {
+	prev = curr;
+	curr = queue.front();
+	queue.pop_front();
+	int a = 0;
+	itcount++;
+
+	if(curr->get()->left != nullptr) {
+		std::cout << itcount << "p left";
+		queue.push_back(&(curr->get()->left));
+		a++;
+	}
+	if(curr->get()->right != nullptr) {
+		std::cout << "\t\tp right"<< itcount ;
+		queue.push_back(&(curr->get()->right));
+		a++;
+	}
+	std::cout << "\n";
+	if(a == 0) {
+		curr = nullptr;
+	}
+	return *this;
+}
+
+/*
 //pre
 bst::iterator &bst::iterator::operator ++ () {
 	if(curr == nullptr) {
@@ -128,7 +186,7 @@ bst::iterator &bst::iterator::operator ++ (int) {
 		}
 	}
 	return *this;
-}
+}*/
 
 bst::iterator bst::begin() const {
 	return bst::iterator(&(this->head));

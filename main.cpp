@@ -1,7 +1,7 @@
 #include "main.h"
 
 const char* DELIMS = " 1234567890!@#$%^&*()_+=[{}]\\|;:'\"<>,./?\t";
-bool optimise_with_map = true;
+bool optimise_with_map = false;
 bool shuffle_tree = false;
 
 #define po program_options
