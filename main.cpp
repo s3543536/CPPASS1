@@ -1,5 +1,8 @@
 #include "main.h"
 
+const char* DELIMS = " 1234567890!@#$%^&*()_+=[{}]\\|;:'\"<>,./?\t";
+bool optimise_with_map = true;
+
 #define po program_options
 //using po=program_options;
 
@@ -9,7 +12,7 @@ int main(int argc, char **argv) {
 	boost::po::options_description desc("Allowed Options");
 	desc.add_options()
 		("help,h", "produce help message")
-		("specify_data_structure,s", boost::po::value<std::string>()->default_value("custom_tree"), "specify data structure, can be one of:\nlist, vector, set, custom_list or custom_tree")
+		("specify_data_structure,s", boost::po::value<std::string>()->default_value("list"), "specify data structure, can be one of:\nlist, vector, set, map, custom_list or custom_tree")
 		("dictionary,d", boost::po::value<std::string>()->default_value("./data/dict.dat"), "specify dictionary file")
 		("text,t", boost::po::value<std::string>()->default_value("./data/sml.txt"), "specify text file")
 		("output,o", boost::po::value<std::string>()->default_value("./output.txt"), "specify output file");
@@ -61,7 +64,7 @@ int main(int argc, char **argv) {
 	}
 
 	std::string data_str = var_map["specify_data_structure"].as<std::string>();
-	if(data_str == "list") {
+	if(data_str == "list") {//std::list
 
 		list_wrapper wrap;
 		std::cout << "list data structure\n";
@@ -94,15 +97,19 @@ int main(int argc, char **argv) {
 		std::cout << "finished\n";
 		return EXIT_SUCCESS;
 
-	} else if(data_str == "vector") {
+	} else if(data_str == "vector") {//std::vector
 		std::cout << "vector data structure\n";
 		std::cout << "NYI\n";
 		return EXIT_SUCCESS;
-	} else if(data_str == "set") {
+	} else if(data_str == "set") {//std::set
 		std::cout << "set data structure\n";
 		std::cout << "NYI\n";
 		return EXIT_SUCCESS;
-	} else if(data_str == "custom_list") {
+	} else if(data_str == "map") {//std::map
+		std::cout << "map data structure\n";
+		std::cout << "NYI\n";
+		return EXIT_SUCCESS;
+	} else if(data_str == "custom_list") {//linked_list
 
 		custom_list_wrapper wrap;
 		std::cout << "custom_list data structure\n";
@@ -135,18 +142,18 @@ int main(int argc, char **argv) {
 		std::cout << "finished\n";
 
 		return EXIT_SUCCESS;
-	} else if(data_str == "custom_tree"){
+	} else if(data_str == "custom_tree"){//binary_search_tree
 
-		custom_list_wrapper wrap;
+		custom_tree_wrapper wrap;
 		std::cout << "custom_tree data structure\n";
 
 		//load the files
-		linked_list dict = wrap.load_dict(var_map["dictionary"].as<std::string>());
+		binary_search_tree dict = wrap.load_dict(var_map["dictionary"].as<std::string>());
 		if(dict.size() < 1) {
 			std::cout << "Can't open Dictionary File\n";
 			return EXIT_SUCCESS;
 		}
-		linked_list text = wrap.load_text(var_map["text"].as<std::string>());
+		binary_search_tree text = wrap.load_text(var_map["text"].as<std::string>());
 		if(text.size() < 1) {
 			std::cout << "Can't open Text File\n";
 			return EXIT_SUCCESS;
@@ -168,8 +175,6 @@ int main(int argc, char **argv) {
 		std::cout << "writing to file\n";
 		write_to_file(var_map["output"].as<std::string>(), wordmap);
 		std::cout << "finished\n";
-
-
 	
 		return EXIT_SUCCESS;
 	} else {

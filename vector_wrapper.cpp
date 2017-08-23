@@ -1,5 +1,9 @@
 #include "list_wrapper.h"
 
+const char* DELIMS = " 1234567890!@#$%^&*()_+=[{}]\\|;:'\"<>,./?\t";
+bool optimise_with_map = true;
+
+
 std::string list_wrapper::closest_match(std::list<std::string> dict, std::string word) {
 	//edit_distance::calculate(str1, str2);
 	int min = (int)dict.size();
