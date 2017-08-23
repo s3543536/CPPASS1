@@ -11,6 +11,10 @@ bst::node * bst::iterator::operator * () const {
 	return curr->get();
 }
 
+bst::node * bst::iterator::operator -> () const {
+	return curr->get();
+}
+
 //pre
 bst::iterator &bst::iterator::operator ++ () {
 	if(prev->get() == curr->get()->parent.get()) {
@@ -196,7 +200,7 @@ bool bst::add(std::string data)
 }
 
 
-bool bst::search(std::string needle)
+bool bst::search(std::string needle) const
 {
 	node *current;
 	if(head == nullptr) {

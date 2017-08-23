@@ -33,7 +33,7 @@ class binary_search_tree
     public:
     binary_search_tree(void) : head(nullptr), this_size(0) {}
     bool add(std::string);
-    bool search(std::string);
+    bool search(std::string) const;
 	int size() const;
 
 	struct iterator {
@@ -46,6 +46,7 @@ class binary_search_tree
 
 		bool operator != (const iterator &it) const;
 		node * operator * () const;
+		node * operator -> () const;
 		iterator &operator ++ ();
 		iterator &operator ++ (int);
 

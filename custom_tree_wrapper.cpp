@@ -7,10 +7,10 @@ std::string custom_tree_wrapper::closest_match(binary_search_tree const& dict, s
 
 	for(auto it = dict.begin(); it != dict.end(); it++) {
 		//std::cout << "calculating the distance between: " << word << ", " << *it << "\n";
-		int asdf = std::min(min, edit_distance::calculate(word, (*it)->get_data()));
+		int asdf = std::min(min, edit_distance::calculate(word, it->get_data()));
 		if(asdf < min) {
 			min = asdf;
-			shortest = (*it)->get_data();
+			shortest = it->get_data();
 		}
 	}
 	return shortest;
@@ -39,30 +39,25 @@ std::map<std::string, int> custom_tree_wrapper::count_words(binary_search_tree c
 	//std::cout << "empty map test: " << out["test"] << "\n";
 	for(auto text_it = text.begin(); text_it != text.end(); text_it++) {
 		//check: *text_it
-		bool match = false;
-		
-		if(optimise_with_map && map[(*text_it)->get_data()] != 0) {
-			if(map[(*text_it)->get_data()] > 0) {
+
+		if(optimise_with_map && map[text_it->get_data()] != 0) {
+			if(map[text_it->get_data()] > 0) {
 				//its in dict
-				map[(*text_it)->get_data()]++;
+				map[text_it->get_data()]++;
 			} else {
 				//its not in dict
-				map[(*text_it)->get_data()]--;
+				map[text_it->get_data()]--;
 			}
 		}
-		if(!optimise_with_map || map[(*text_it)->get_data()] == 0) {
-			for(auto dict_it = dict.begin(); dict_it != dict.end(); dict_it++) {
-				if((*dict_it)->get_data() == (*text_it)->get_data()) {
-					//match!
-					match = true;
-					//add to map value
-					map[(*text_it)->get_data()]++;
-					break;
-				}
-			}
-			if(!match) {
+		if(!optimise_with_map || map[text_it->get_data()] == 0) {
+
+			if(dict.search(text_it->get_data())) {
+				//match!
+				//add to map value
+				map[text_it->get_data()]++;
+			} else {
 				//add to map with -1
-				map[(*text_it)->get_data()]--;
+				map[text_it->get_data()]--;
 			}
 		}
 	}
