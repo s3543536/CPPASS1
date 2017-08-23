@@ -200,8 +200,7 @@ bool bst::add(std::string data)
 }
 
 
-bool bst::search(std::string needle) const
-{
+bool bst::search(std::string needle) const {
 	node *current;
 	if(head == nullptr) {
 		return false;
