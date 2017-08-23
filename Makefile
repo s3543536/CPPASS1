@@ -19,7 +19,7 @@ $(PROGRAM): $(OBJECTS)
 -include $(SOURCES:.cpp=.d)
 .PHONY:clean archive debug rebuild
 
-debug:clean all
+debug:all
 debug:CFLAGS+= -fsanitize=address -g
 debug:LDFLAGS+= -fsanitize=address -g
 

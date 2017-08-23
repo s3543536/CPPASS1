@@ -2,7 +2,7 @@
 
 const char* DELIMS = " 1234567890!@#$%^&*()_+=[{}]\\|;:'\"<>,./?\t";
 bool optimise_with_map = true;
-bool shuffle_tree = true;
+bool shuffle_tree = false;
 
 #define po program_options
 //using po=program_options;

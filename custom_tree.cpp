@@ -17,22 +17,33 @@ bst::node * bst::iterator::operator -> () const {
 
 //pre
 bst::iterator &bst::iterator::operator ++ () {
-	if(prev->get() == curr->get()->parent.get()) {
+	if(curr == nullptr) {
+		return *this;
+	}
+
+	if(last_pos == PARENT) {
 		//prev == parent
 		if(curr->get()->left != nullptr) {
 			//go left
 			prev = curr;
+			last_pos = PARENT;
 			curr = &(curr->get()->left);
 		} else if(curr->get()->right != nullptr) {
 			//go right
 			prev = curr;
+			last_pos = PARENT;
 			curr = &(curr->get()->right);
 		} else {
 			//go up
 			prev = curr;
 			curr = &(curr->get()->parent);
+			if(prev == &(curr->get()->left)) {
+				last_pos = LEFT;
+			} else {
+				last_pos = RIGHT;
+			}
 		}
-	} else if(prev->get() == curr->get()->left.get()) {
+	} else if(last_pos == LEFT) {
 		//prev == left
 		if(curr->get()->right != nullptr) {
 			//go right
@@ -42,6 +53,11 @@ bst::iterator &bst::iterator::operator ++ () {
 			//go up
 			prev = curr;
 			curr = &(curr->get()->parent);
+			if(prev == &(curr->get()->left)) {
+				last_pos = LEFT;
+			} else {
+				last_pos = RIGHT;
+			}
 		}
 	} else {
 		//prev == right
@@ -58,22 +74,33 @@ bst::iterator &bst::iterator::operator ++ () {
 }
 //post
 bst::iterator &bst::iterator::operator ++ (int) {
-	if(prev->get() == curr->get()->parent.get()) {
+	if(curr == nullptr) {
+		return *this;
+	}
+
+	if(last_pos == PARENT) {
 		//prev == parent
 		if(curr->get()->left != nullptr) {
 			//go left
 			prev = curr;
+			last_pos = PARENT;
 			curr = &(curr->get()->left);
 		} else if(curr->get()->right != nullptr) {
 			//go right
 			prev = curr;
+			last_pos = PARENT;
 			curr = &(curr->get()->right);
 		} else {
 			//go up
 			prev = curr;
 			curr = &(curr->get()->parent);
+			if(prev == &(curr->get()->left)) {
+				last_pos = LEFT;
+			} else {
+				last_pos = RIGHT;
+			}
 		}
-	} else if(prev->get() == curr->get()->left.get()) {
+	} else if(last_pos == LEFT) {
 		//prev == left
 		if(curr->get()->right != nullptr) {
 			//go right
@@ -83,6 +110,11 @@ bst::iterator &bst::iterator::operator ++ (int) {
 			//go up
 			prev = curr;
 			curr = &(curr->get()->parent);
+			if(prev == &(curr->get()->left)) {
+				last_pos = LEFT;
+			} else {
+				last_pos = RIGHT;
+			}
 		}
 	} else {
 		//prev == right
@@ -97,7 +129,6 @@ bst::iterator &bst::iterator::operator ++ (int) {
 	}
 	return *this;
 }
-
 
 bst::iterator bst::begin() const {
 	return bst::iterator(&(this->head));
@@ -174,27 +205,32 @@ bool bst::add(std::string data)
     {
 
 		if(current->data <= data) {
-			if(current->left != nullptr) {
+			if(true || current->left != nullptr) {
 				//go left
 				prev = current;
 				current = current->get_left();
 			} else {
 				//insert left
-				prev->set_left(std::move(newnode));
-				break;
+				//current->left = std::move(newnode);
+				//break;
 			}
 		} else {
-			if(current->right != nullptr) {
+			if(true || current->right != nullptr) {
 				//go right
 				prev = current;
 				current = current->get_right();
 			} else {
 				//insert right
-				prev->set_right(std::move(newnode));
-				break;
+				//current->right = std::move(newnode);
+				//break;
 			}
 		}
     }
+	if(prev->data <= data) {
+		prev->left = std::move(newnode);
+	} else {
+		prev->right = std::move(newnode);
+	}
     ++this_size;
     return true;
 }

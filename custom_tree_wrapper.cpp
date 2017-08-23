@@ -5,7 +5,7 @@ std::string custom_tree_wrapper::closest_match(binary_search_tree const& dict, s
 	int min = INT_MAX;
 	std::string shortest = word;
 
-	for(auto it = dict.begin(); it != dict.end(); it++) {
+	for(auto it = dict.begin(); *it != nullptr; it++) {
 		//std::cout << "calculating the distance between: " << word << ", " << *it << "\n";
 		int asdf = std::min(min, edit_distance::calculate(word, it->get_data()));
 		if(asdf < min) {
@@ -37,7 +37,7 @@ std::map<std::string, std::string> custom_tree_wrapper::check_words(binary_searc
 std::map<std::string, int> custom_tree_wrapper::count_words(binary_search_tree const& dict, binary_search_tree const& text) {
 	std::map<std::string, int> map;
 	//std::cout << "empty map test: " << out["test"] << "\n";
-	for(auto text_it = text.begin(); text_it != text.end(); text_it++) {
+	for(auto text_it = text.begin(); *text_it != nullptr; text_it++) {
 		//check: *text_it
 
 		if(optimise_with_map && map[text_it->get_data()] != 0) {

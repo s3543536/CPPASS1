@@ -1,4 +1,10 @@
 #include <memory>
+#include <iostream>
+
+const int LEFT = 0;
+const int RIGHT = 1;
+const int PARENT = 2;
+
 class binary_search_tree
 {
 
@@ -41,6 +47,7 @@ class binary_search_tree
 		//change
 		const std::unique_ptr<node> *curr;
 		const std::unique_ptr<node> *prev;
+		int last_pos = PARENT;
 
 		iterator(const std::unique_ptr<node> *other) : curr(other), prev(nullptr) {}
 
