@@ -2,7 +2,7 @@
 
 const char* DELIMS = " 1234567890!@#$%^&*()_+=[{}]\\|;:'\"<>,./?\t";
 bool optimise_with_map = false;
-bool shuffle_tree = false;
+bool shuffle_tree = true;
 
 #define po program_options
 //using po=program_options;
@@ -193,7 +193,6 @@ int main(int argc, char **argv) {
 		//count the words
 		std::cout << "starting dictionary search\n";
 		std::map<std::string, int> countmap = wrap.count_words(dict, text);
-		std::cout << "map size: " << countmap.size() << "\n";
 		std::cout << "finished\n";
 	
 		//get the edit distance

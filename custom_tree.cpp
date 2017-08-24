@@ -25,21 +25,17 @@ bst::node * bst::iterator::operator -> () const {
 
 //pre
 bst::iterator &bst::iterator::operator ++ () {
-	prev = curr;
 	if(queue.size() == 0) {
 		curr = nullptr;
 		return *this;
 	}
 	curr = queue.front();
 	queue.pop_front();
-	itcount++;
 
 	if(curr->get()->left != nullptr) {
-		//std::cout << itcount << "p left";
 		queue.push_back(&(curr->get()->left));
 	}
 	if(curr->get()->right != nullptr) {
-		//std::cout << "\t\tp right"<< itcount ;
 		queue.push_back(&(curr->get()->right));
 	}
 	std::cout << "\n";
@@ -47,142 +43,22 @@ bst::iterator &bst::iterator::operator ++ () {
 }
 //post
 bst::iterator &bst::iterator::operator ++ (int) {
-	prev = curr;
 	curr = queue.front();
 	if(queue.size() == 0) {
 		curr = nullptr;
 		return *this;
 	}
 	queue.pop_front();
-	itcount++;
 
 	if(curr->get()->left != nullptr) {
-		//std::cout << itcount << "p left";
 		queue.push_back(&(curr->get()->left));
 	}
 	if(curr->get()->right != nullptr) {
-		//std::cout << "\t\tp right"<< itcount ;
 		queue.push_back(&(curr->get()->right));
 	}
 	//std::cout << "\n";
 	return *this;
 }
-
-/*
-//pre
-bst::iterator &bst::iterator::operator ++ () {
-	if(curr == nullptr) {
-		return *this;
-	}
-
-	if(last_pos == PARENT) {
-		//prev == parent
-		if(curr->get()->left != nullptr) {
-			//go left
-			prev = curr;
-			last_pos = PARENT;
-			curr = &(curr->get()->left);
-		} else if(curr->get()->right != nullptr) {
-			//go right
-			prev = curr;
-			last_pos = PARENT;
-			curr = &(curr->get()->right);
-		} else {
-			//go up
-			prev = curr;
-			curr = &(curr->get()->parent);
-			if(prev == &(curr->get()->left)) {
-				last_pos = LEFT;
-			} else {
-				last_pos = RIGHT;
-			}
-		}
-	} else if(last_pos == LEFT) {
-		//prev == left
-		if(curr->get()->right != nullptr) {
-			//go right
-			prev = curr;
-			curr = &(curr->get()->right);
-		} else {
-			//go up
-			prev = curr;
-			curr = &(curr->get()->parent);
-			if(prev == &(curr->get()->left)) {
-				last_pos = LEFT;
-			} else {
-				last_pos = RIGHT;
-			}
-		}
-	} else {
-		//prev == right
-		if(curr->get()->parent != nullptr) {
-			//go up
-			prev = curr;
-			curr = &(curr->get()->parent);
-		} else {
-			//at head, you have been right, finish
-			curr = nullptr;
-		}
-	}
-	return *this;
-}
-//post
-bst::iterator &bst::iterator::operator ++ (int) {
-	if(curr == nullptr) {
-		return *this;
-	}
-
-	if(last_pos == PARENT) {
-		//prev == parent
-		if(curr->get()->left != nullptr) {
-			//go left
-			prev = curr;
-			last_pos = PARENT;
-			curr = &(curr->get()->left);
-		} else if(curr->get()->right != nullptr) {
-			//go right
-			prev = curr;
-			last_pos = PARENT;
-			curr = &(curr->get()->right);
-		} else {
-			//go up
-			prev = curr;
-			curr = &(curr->get()->parent);
-			if(prev == &(curr->get()->left)) {
-				last_pos = LEFT;
-			} else {
-				last_pos = RIGHT;
-			}
-		}
-	} else if(last_pos == LEFT) {
-		//prev == left
-		if(curr->get()->right != nullptr) {
-			//go right
-			prev = curr;
-			curr = &(curr->get()->right);
-		} else {
-			//go up
-			prev = curr;
-			curr = &(curr->get()->parent);
-			if(prev == &(curr->get()->left)) {
-				last_pos = LEFT;
-			} else {
-				last_pos = RIGHT;
-			}
-		}
-	} else {
-		//prev == right
-		if(curr->get()->parent != nullptr) {
-			//go up
-			prev = curr;
-			curr = &(curr->get()->parent);
-		} else {
-			//at head, you have been right, finish
-			curr = nullptr;
-		}
-	}
-	return *this;
-}*/
 
 bst::iterator bst::begin() const {
 	return bst::iterator(&(this->head));

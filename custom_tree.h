@@ -46,13 +46,11 @@ class binary_search_tree
 	struct iterator {
 		//so the unique_ptr<node> doesn't change, but the pointer to it does
 		//change
-		int itcount = 0;
 		const std::unique_ptr<node> *curr;
-		const std::unique_ptr<node> *prev;
 		std::list<const std::unique_ptr<node>*> queue;
 		//int last_pos = PARENT;
 
-		iterator(const std::unique_ptr<node> *other) : curr(other), prev(nullptr) {
+		iterator(const std::unique_ptr<node> *other) : curr(other) {
 			queue.push_back(curr);
 		}
 
