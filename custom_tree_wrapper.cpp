@@ -36,9 +36,13 @@ std::map<std::string, std::string> custom_tree_wrapper::check_words(binary_searc
 
 std::map<std::string, int> custom_tree_wrapper::count_words(binary_search_tree const& dict, binary_search_tree const& text) {
 	std::map<std::string, int> map;
+	//std::cout << "text size: " << text.size() << "\n";
+	//std::cout << "dict size: " << dict.size() << "\n";
+	int count = 0;
 	//std::cout << "empty map test: " << out["test"] << "\n";
 	for(auto text_it = text.begin(); *text_it != nullptr; text_it++) {
 		//check: *text_it
+		count++;
 
 		if(optimise_with_map && map[text_it->get_data()] != 0) {
 			if(map[text_it->get_data()] > 0) {
@@ -61,11 +65,13 @@ std::map<std::string, int> custom_tree_wrapper::count_words(binary_search_tree c
 			}
 		}
 	}
+	//std::cout << "count: " << count << "\n";
 	return map;
 }
 
 binary_search_tree custom_tree_wrapper::load_text(std::string file_name) {
 	binary_search_tree text;
+	//int count = 0;
 
 	if(shuffle_tree) {
 		vector_wrapper wrap;
@@ -80,6 +86,7 @@ binary_search_tree custom_tree_wrapper::load_text(std::string file_name) {
 
 		//load into binary search tree
 		for(auto it = vect.begin(); it != vect.end(); it++) {
+			//std::cout << count++ << "\n";
 			text.add(boost::algorithm::to_lower_copy(*it));
 		}
 	} else {
@@ -96,6 +103,7 @@ binary_search_tree custom_tree_wrapper::load_text(std::string file_name) {
 
 				for(auto it = toks.begin(); it != toks.end(); it++) {
 					//add each token into the list
+					//std::cout << count++ << "\n";
 					text.add(boost::algorithm::to_lower_copy(*it));
 				}
 			}
@@ -109,6 +117,7 @@ binary_search_tree custom_tree_wrapper::load_text(std::string file_name) {
 
 binary_search_tree custom_tree_wrapper::load_dict(std::string file_name) {
 	binary_search_tree dict;
+	//int count = 0;
 
 	if(shuffle_tree) {
 		vector_wrapper wrap;
@@ -123,6 +132,7 @@ binary_search_tree custom_tree_wrapper::load_dict(std::string file_name) {
 
 		//load into binary search tree
 		for(auto it = vect.begin(); it != vect.end(); it++) {
+			//std::cout << count++ << "\n";
 			dict.add(boost::algorithm::to_lower_copy(*it));
 		}
 	} else {
@@ -133,6 +143,7 @@ binary_search_tree custom_tree_wrapper::load_dict(std::string file_name) {
 
 			//std::cout << "opening file\n";
 			while(std::getline(myfile, line)) {
+				//std::cout << count++ << "\n";
 				dict.add(line);
 			}
 

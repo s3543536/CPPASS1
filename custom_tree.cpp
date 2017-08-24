@@ -26,49 +26,45 @@ bst::node * bst::iterator::operator -> () const {
 //pre
 bst::iterator &bst::iterator::operator ++ () {
 	prev = curr;
+	if(queue.size() == 0) {
+		curr = nullptr;
+		return *this;
+	}
 	curr = queue.front();
 	queue.pop_front();
-	int a = 0;
 	itcount++;
 
 	if(curr->get()->left != nullptr) {
-		std::cout << itcount << "p left";
+		//std::cout << itcount << "p left";
 		queue.push_back(&(curr->get()->left));
-		a++;
 	}
 	if(curr->get()->right != nullptr) {
-		std::cout << "\t\tp right"<< itcount ;
+		//std::cout << "\t\tp right"<< itcount ;
 		queue.push_back(&(curr->get()->right));
-		a++;
 	}
 	std::cout << "\n";
-	if(a == 0) {
-		curr = nullptr;
-	}
 	return *this;
 }
 //post
 bst::iterator &bst::iterator::operator ++ (int) {
 	prev = curr;
 	curr = queue.front();
+	if(queue.size() == 0) {
+		curr = nullptr;
+		return *this;
+	}
 	queue.pop_front();
-	int a = 0;
 	itcount++;
 
 	if(curr->get()->left != nullptr) {
-		std::cout << itcount << "p left";
+		//std::cout << itcount << "p left";
 		queue.push_back(&(curr->get()->left));
-		a++;
 	}
 	if(curr->get()->right != nullptr) {
-		std::cout << "\t\tp right"<< itcount ;
+		//std::cout << "\t\tp right"<< itcount ;
 		queue.push_back(&(curr->get()->right));
-		a++;
 	}
-	std::cout << "\n";
-	if(a == 0) {
-		curr = nullptr;
-	}
+	//std::cout << "\n";
 	return *this;
 }
 
