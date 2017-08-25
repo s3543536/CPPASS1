@@ -66,7 +66,17 @@ int main(int argc, char **argv) {
 	}
 
 	std::string data_str = var_map["specify_data_structure"].as<std::string>();
+
+
+
+
+
+
+
+
 	if(data_str == "list") {//std::list
+//================================================================================
+
 
 		list_wrapper wrap;
 		std::cout << "list data structure\n";
@@ -99,7 +109,15 @@ int main(int argc, char **argv) {
 		std::cout << "finished\n";
 		return EXIT_SUCCESS;
 
+
+
+
+
+
+
 	} else if(data_str == "vector") {//std::vector
+//================================================================================
+
 		vector_wrapper wrap;
 		std::cout << "vector data structure\n";
 
@@ -131,7 +149,18 @@ int main(int argc, char **argv) {
 		std::cout << "finished\n";
 
 		return EXIT_SUCCESS;
+
+
+
+
+
+
+
+
+
 	} else if(data_str == "set") {//std::set
+//================================================================================
+
 		set_wrapper wrap;
 		std::cout << "set data structure\n";
 
@@ -163,7 +192,22 @@ int main(int argc, char **argv) {
 		std::cout << "finished\n";
 
 		return EXIT_SUCCESS;
+
+
+
+
+
+
+
+
+
+
+
+
+
 	} else if(data_str == "map") {//std::map
+//================================================================================
+
 		std::cout << "map data structure\n";
 		map_wrapper wrap;
 
@@ -196,6 +240,7 @@ int main(int argc, char **argv) {
 
 		return EXIT_SUCCESS;
 	} else if(data_str == "custom_list") {//linked_list
+//================================================================================
 
 		custom_list_wrapper wrap;
 		std::cout << "custom_list data structure\n";
@@ -228,7 +273,20 @@ int main(int argc, char **argv) {
 		std::cout << "finished\n";
 
 		return EXIT_SUCCESS;
+
+
+
+
+
+
+
+
+
+
+
+
 	} else if(data_str == "custom_tree"){//binary_search_tree
+//================================================================================
 
 		custom_tree_wrapper wrap;
 		std::cout << "custom_tree data structure\n";
@@ -263,6 +321,13 @@ int main(int argc, char **argv) {
 		std::cout << "finished\n";
 	
 		return EXIT_SUCCESS;
+
+
+
+
+
+
+
 	} else {
 		display_help(desc);
 		return EXIT_SUCCESS;
