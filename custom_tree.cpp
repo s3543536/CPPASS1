@@ -38,7 +38,6 @@ bst::iterator &bst::iterator::operator ++ () {
 	if(curr->get()->right != nullptr) {
 		queue.push_back(&(curr->get()->right));
 	}
-	std::cout << "\n";
 	return *this;
 }
 //post
@@ -56,7 +55,6 @@ bst::iterator &bst::iterator::operator ++ (int) {
 	if(curr->get()->right != nullptr) {
 		queue.push_back(&(curr->get()->right));
 	}
-	//std::cout << "\n";
 	return *this;
 }
 

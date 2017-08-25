@@ -1,0 +1,9 @@
+ 2463  cat bigbigdict.dat | grep ^[lomamche]*i[lomamche]*$ > possible
+ 2464  '/m.*m.*m/d'
+ 2465  sed -i '/.*m.*m.*m.*/d' possible
+ 2466  sed -i '/.*l.*l.*/d' possible
+ 2467  sed -i '/.*o.*o.*/d' possible
+ 2468  sed -i '/.*a.*a.*/d' possible
+ 2469  sed -i '/.*c.*c.*/d' possible
+ 2470  sed -i '/.*h.*h.*/d' possible
+ 2471  sed -i '/.*e.*e.*/d' possible

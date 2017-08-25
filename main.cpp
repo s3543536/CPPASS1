@@ -136,7 +136,35 @@ int main(int argc, char **argv) {
 		return EXIT_SUCCESS;
 	} else if(data_str == "map") {//std::map
 		std::cout << "map data structure\n";
-		std::cout << "NYI\n";
+		map_wrapper wrap;
+
+		//load the files
+		std::map<std::string, int> dict = wrap.load_dict(var_map["dictionary"].as<std::string>());
+		if(dict.size() < 1) {
+			std::cout << "Can't open Dictionary File\n";
+			return EXIT_SUCCESS;
+		}
+		std::map<std::string, int> text = wrap.load_text(var_map["text"].as<std::string>());
+		if(text.size() < 1) {
+			std::cout << "Can't open Text File\n";
+			return EXIT_SUCCESS;
+		}
+	
+		//count the words
+		std::cout << "starting dictionary search\n";
+		std::map<std::string, int> countmap = wrap.count_words(dict, text);
+		std::cout << "finished\n";
+	
+		//get the edit distance
+		std::cout << "starting edit distance check\n";
+		std::map<std::string, std::string> wordmap = wrap.check_words(dict, countmap);
+		std::cout << "finished\n";
+	
+		//write data
+		std::cout << "writing to file\n";
+		write_to_file(var_map["output"].as<std::string>(), wordmap);
+		std::cout << "finished\n";
+
 		return EXIT_SUCCESS;
 	} else if(data_str == "custom_list") {//linked_list
 
