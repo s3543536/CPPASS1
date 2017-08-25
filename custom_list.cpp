@@ -1,3 +1,5 @@
+//by Angel English s3543536
+//based off of the linked list example by Paul Miller
 #include "custom_list.h"
 /* new typedef */
 using ll=linked_list;

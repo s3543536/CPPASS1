@@ -1,3 +1,4 @@
+//by Angel English s3543536
 #include "set_wrapper.h"
 
 std::string set_wrapper::closest_match(std::set<std::string> dict, std::string word) {

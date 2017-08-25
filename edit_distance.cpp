@@ -1,3 +1,4 @@
+//by Angel English s3543536
 #include "edit_distance.h"
 
 int edit_distance::calculate(std::string s1, std::string s2) {

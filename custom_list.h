@@ -1,3 +1,5 @@
+//by Angel English s3543536
+//based off of the linked list example by Paul Miller
 #include <memory>
 class linked_list
 {

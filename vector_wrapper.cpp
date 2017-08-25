@@ -1,3 +1,4 @@
+//by Angel English s3543536
 #include "vector_wrapper.h"
 
 std::string vector_wrapper::closest_match(std::vector<std::string> dict, std::string word) {

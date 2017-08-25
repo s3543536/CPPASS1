@@ -1,3 +1,4 @@
+//by Angel English s3543536
 #include "map_wrapper.h"
 
 std::string map_wrapper::closest_match(std::map<std::string, int> dict, std::string word) {

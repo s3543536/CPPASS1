@@ -1,3 +1,6 @@
+//by Angel English s3543536
+//iterator based off example by Paul Miller
+//based off of the linked list example by Paul Miller
 #include <memory>
 #include <iostream>
 #include <list>
