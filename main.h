@@ -4,6 +4,7 @@
 #include <memory>
 #include "list_wrapper.h"
 #include "vector_wrapper.h"
+#include "set_wrapper.h"
 #include "map_wrapper.h"
 #include "custom_tree_wrapper.h"
 #include "custom_list_wrapper.h"

@@ -88,6 +88,7 @@ linked_list custom_list_wrapper::load_text(std::string file_name) {
 
 			for(auto it = toks.begin(); it != toks.end(); it++) {
 				//add each token into the list
+				//std::cout << resl << "loading text: " << *it;
 				text.add(boost::algorithm::to_lower_copy(*it));
 			}
 		}
@@ -107,6 +108,7 @@ linked_list custom_list_wrapper::load_dict(std::string file_name) {
 
 		//std::cout << "opening file\n";
 		while(std::getline(myfile, line)) {
+			//std::cout << resl << "loading dict: " << line;
 			dict.add(line);
 		}
 

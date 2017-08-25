@@ -1,6 +1,6 @@
-SOURCES=main.cpp list_wrapper.cpp edit_distance.cpp custom_list_wrapper.cpp custom_list.cpp custom_tree_wrapper.cpp custom_tree.cpp vector_wrapper.cpp map_wrapper.cpp 
-OBJECTS=main.o list_wrapper.o edit_distance.o custom_list_wrapper.o custom_list.o custom_tree_wrapper.o custom_tree.o vector_wrapper.o map_wrapper.o
-HEADERS=main.h list_wrapper.h edit_distance.h custom_list_wrapper.h custom_list.h custom_tree_wrapper.h custom_tree.h vector_wrapper.h map_wrapper.h
+SOURCES=main.cpp edit_distance.cpp list_wrapper.cpp vector_wrapper.cpp set_wrapper.cpp map_wrapper.cpp custom_list_wrapper.cpp custom_list.cpp custom_tree_wrapper.cpp custom_tree.cpp 
+OBJECTS=$(SOURCES:.cpp=.o)
+HEADERS=$(SOURCES:.cpp=.h)
 PROGRAM=a.out
 DFILERULES=-MMD -MP
 CFLAGS=-lm -pedantic -Wall -std=c++14 $(DFILERULES)

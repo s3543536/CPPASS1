@@ -1,0 +1,18 @@
+dictionary search is very quick, as searching through a map has logarithmic
+complexity. it would be on order of:
+	n log m
+	where
+		n = number of words in source text
+		m = number of words in the dictionary
+
+this is because the dictionary search has to iterate through all the files in
+the input text, but it can use the search functionality on the dictionary
+
+the same cannot be said for the edit distance, since that has to compare every
+word in the input text against every word in the dictionary anyway. its
+complexity would be:
+	n * m
+	where
+		n = number of words in source text
+		m = number of words in the dictionary
+
